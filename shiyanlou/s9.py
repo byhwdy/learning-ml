@@ -2,6 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt 
 import numpy as np 
 import operator
+from ipywidgets import interact, fixed
 
 def create_data():
     """生成示例数据
@@ -46,6 +47,26 @@ def knn_classify(test_data, train_data, labels, k):
     final_label = majority_voting(class_count)
     return final_label, r
 
+def circle(r, a, b):
+	"""极坐标表示圆"""
+	theta = np.arange(0, 2*np.pi, 0.01)
+	x = a + r*np.cos(theta)
+	y = b + r*np.sin(theta)
+	return x, y
+
+def change_k(test_data, features, k):
+    final_label, r = knn_classify(test_data, features, labels, k)
+    k_circle_x, k_circle_y = circle(r, 3.18, 3.15)
+    plt.figure(figsize=(5, 5))
+    plt.xlim((2.4, 3.8))
+    plt.ylim((2.4, 3.8))
+    x_feature = list(map(lambda x: x[0], features))  # 返回每个数据的x特征值
+    y_feature = list(map(lambda y: y[1], features))
+    plt.scatter(x_feature[:5], y_feature[:5], c="b")  # 在画布上绘画出"A"类标签的数据点
+    plt.scatter(x_feature[5:], y_feature[5:], c="g")
+    plt.scatter([3.18], [3.15], c="r", marker="x")  # 待测试点的坐标为 [3.1，3.2]
+    plt.plot(k_circle_x, k_circle_y)
+
 
 if __name__ == '__main__':
     # 查看示例数据
@@ -86,5 +107,22 @@ if __name__ == '__main__':
     
     # 测试knn算法
     test_data = np.array([3.18, 3.15])
-    final_label, r =  knn_classify(test_data, features, labels, 5)
-    print(final_label)
+    # final_label, r =  knn_classify(test_data, features, labels, 5)
+    # print(final_label)
+
+    # 画图展示结果
+    # k_circle_x, k_circle_y = circle(r, 3.18, 3.15)
+    # plt.figure(figsize=(5, 5))
+    # plt.xlim((2.4, 3.8))    
+    # plt.ylim((2.4, 3.8))    
+    # x_feature = list(map(lambda x:x[0], features))
+    # y_feature = list(map(lambda x:x[1], features))
+    # plt.scatter(x_feature[:5], y_feature[:5], c='b')
+    # plt.scatter(x_feature[5:], y_feature[5:], c='g')
+    # plt.scatter([3.18], [3.15], c='r', marker='x')
+    # plt.plot(k_circle_x, k_circle_y)
+    # plt.show()
+
+    # 不同的k值分类效果的区别
+    # interact(change_k, test_data=fixed(test_data),
+    #      features=fixed(features), k=[3, 5, 7, 9])
