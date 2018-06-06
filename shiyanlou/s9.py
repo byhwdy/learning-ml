@@ -107,8 +107,8 @@ if __name__ == '__main__':
     
     # 测试knn算法
     test_data = np.array([3.18, 3.15])
-    # final_label, r =  knn_classify(test_data, features, labels, 5)
-    # print(final_label)
+    final_label, r =  knn_classify(test_data, features, labels, 5)
+    print(final_label)
 
     # 画图展示结果
     # k_circle_x, k_circle_y = circle(r, 3.18, 3.15)
@@ -126,3 +126,6 @@ if __name__ == '__main__':
     # 不同的k值分类效果的区别
     # interact(change_k, test_data=fixed(test_data),
     #      features=fixed(features), k=[3, 5, 7, 9])
+    
+    # 计算精确度
+    print(get_accuracy(final_label, ))
