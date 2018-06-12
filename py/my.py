@@ -29,7 +29,26 @@
 # 		i += 1
 # 	return result
 
+
+def removeDuplicates(nums):
+    """
+    :type nums: List[int]
+    :rtype: int
+    """
+    i = 0
+    while True:
+        if i == len(nums)-1:
+            break
+        if nums[i+1] == nums[i]:
+            del nums[i+1]
+        else:
+            i += 1
+    return len(nums)
+
+
 if __name__ == '__main__':
 	# yield			
-	result = generate_square(10)
-	print(list(result))
+	# result = generate_square(10)
+	# print(list(result))
+	
+	print(removeDuplicates([1,2,2,2,3,3,4,5]))
