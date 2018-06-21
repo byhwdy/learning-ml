@@ -10,9 +10,11 @@ def random_k(k, data):
 	返回：
 	init_centers: 初始化中心点
 	"""
+	# np.set_printoptions(precision=15)
 	prng = np.random.RandomState(27)
 	num_feature = np.shape(data)[1]
 	init_centers = prng.randn(k, num_feature)*5  # 从方差为5的正态分布选取点
+	# print(init_centers);exit()
 	return init_centers
 
 def d_euc(x, y):
@@ -60,7 +62,8 @@ def kmeans_cluster(data, init_centers, k):
 	cluster_container：每一次更新类别集合
 	"""
 	max_step = 50  # 定义最大迭代次数，中心点最多移动的次数
-	epsilon = 0.001 # 定义一个足够小的数， 通过中心点变化的距离是否小于该数，判断中心点是否变化
+	# epsilon = 0.001 # 定义一个足够小的数， 通过中心点变化的距离是否小于该数，判断中心点是否变化
+	epsilon = 0.3 # 定义一个足够小的数， 通过中心点变化的距离是否小于该数，判断中心点是否变化
 
 	old_centers = init_centers
 
@@ -82,15 +85,21 @@ def kmeans_cluster(data, init_centers, k):
 		new_centers = update_center(cluster, data, old_centers)  # 根据子集分类更新中心点
 
 		difference = np.fabs(new_centers-old_centers)
-
-		if difference.any() < epsilon:  # 判断中心点是否移动
+		
+		print(new_centers, old_centers)
+		print(difference)
+		# print(difference.dtype)
+		print(difference.any())
+		# print(difference.any() < epsilon)
+		# print(difference<epsilon)
+		# if difference.any() < epsilon:  # 判断中心点是否移动
+		if (difference < epsilon).all():  # 判断中心点是否移动
 			return centers_container, cluster_container
 
 		centers_container.append(new_centers)
 		old_centers = new_centers
 
 	return centers_container, cluster_container
-
 
 
 
