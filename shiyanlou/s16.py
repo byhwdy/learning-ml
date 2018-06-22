@@ -62,8 +62,7 @@ def kmeans_cluster(data, init_centers, k):
 	cluster_container：每一次更新类别集合
 	"""
 	max_step = 50  # 定义最大迭代次数，中心点最多移动的次数
-	# epsilon = 0.001 # 定义一个足够小的数， 通过中心点变化的距离是否小于该数，判断中心点是否变化
-	epsilon = 0.3 # 定义一个足够小的数， 通过中心点变化的距离是否小于该数，判断中心点是否变化
+	epsilon = 0.001 # 定义一个足够小的数， 通过中心点变化的距离是否小于该数，判断中心点是否变化
 
 	old_centers = init_centers
 
@@ -86,13 +85,6 @@ def kmeans_cluster(data, init_centers, k):
 
 		difference = np.fabs(new_centers-old_centers)
 		
-		print(new_centers, old_centers)
-		print(difference)
-		# print(difference.dtype)
-		print(difference.any())
-		# print(difference.any() < epsilon)
-		# print(difference<epsilon)
-		# if difference.any() < epsilon:  # 判断中心点是否移动
 		if (difference < epsilon).all():  # 判断中心点是否移动
 			return centers_container, cluster_container
 
