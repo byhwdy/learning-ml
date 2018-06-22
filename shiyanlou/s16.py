@@ -1,6 +1,8 @@
 from sklearn.datasets import make_blobs
 from matplotlib import pyplot as plt 
 import numpy as np 
+from sklearn.cluster import k_means
+
 
 def random_k(k, data):
 	"""初始化中心点
@@ -94,40 +96,58 @@ def kmeans_cluster(data, init_centers, k):
 	return centers_container, cluster_container
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
 	# 数据
 	blobs, _ = make_blobs(n_samples=200, centers=3, random_state=18)
 	# print(blobs[:10])
 
 	# 初始化3个中心点
-	init_centers = random_k(3, blobs)
+	# init_centers = random_k(3, blobs)
 	# print(init_centers)
 
 	# 计算最终中心点
-	centers_container, cluster_container = kmeans_cluster(blobs, init_centers, 3)
-	final_center = centers_container[-1]
-	final_cluster = cluster_container[-1]
+	# centers_container, cluster_container = kmeans_cluster(blobs, init_centers, 3)
+	# final_center = centers_container[-1]
+	# final_cluster = cluster_container[-1]
 	# print(final_cluster.shape)
 	
-	# 画图
-	plt.scatter(blobs[:, 0], blobs[:, 1], s=20, c=final_cluster)
-	plt.scatter(final_center[:,0], final_center[:,1], s=100, marker='*', c='r')
+	## 画图
+	# 绘制中心点的移动过程
+	# num_axes = len(centers_container)
 
-	plt.show()
+	# fig, axes = plt.subplots(1, num_axes, figsize=(20, 4))
+
+	# axes[0].scatter(blobs[:, 0], blobs[:, 1], s=20, c=cluster_container[0])
+	# axes[0].scatter(init_centers[:, 0], init_centers[:, 1], s=100, marker='*', c="r")
+	# axes[0].set_title("initial center")
+
+	# for i in range(1, num_axes):
+	#     axes[i].scatter(blobs[:, 0], blobs[:, 1], s=20, c=cluster_container[i])
+	#     axes[i].scatter(centers_container[i][:, 0],
+	#                     centers_container[i][:, 1], s=100, marker='*', c="r")
+	#     axes[i].set_title("step {}".format(i))
+
+	# axes[-1].scatter(blobs[:, 0], blobs[:, 1], s=20, c=cluster_container[-1])
+	# axes[-1].scatter(final_center[:, 0], final_center[:, 1], s=100, marker='*', c="r")
+	# axes[-1].set_title("final center")
+	# plt.show()
+	
+	## sk ##
+	# centers, clusters_info, sse = k_means(blobs, n_clusters=3)
+	# print('sse:', sse)	
+	# plt.scatter(blobs[:, 0], blobs[:, 1], s=20, c=clusters_info)
+	# plt.scatter(centers[:, 0], centers[:, 1], s=100, marker='*', c='r')
+	# plt.show()
+	
+	## k值选择的肘部法则 ##
+	# index = []  # 横坐标
+	# inertia = [] # sse
+
+	# k 从1到6
+	# for i in range(6):
+	# 	model = k_means(blobs, n_clusters=i+1)
+	# 	index.append(i+1)
+	# 	inertia.append(model[2])
+
+	# plt.plot(index, inertia, "-o")
+	# plt.show()
