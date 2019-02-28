@@ -28,6 +28,11 @@ one-hot encoding /  multi-hot encoding
 ### 2. dropping
 
 ### 3. creating
+#### synthetic feature
+1. feature crosses  
+对非线性规律进行编码  
+实践中，最常用的是**Crossing One-Hot Vectors**，可以将独热特征矢量的特征组合视为逻辑连接, 例如：country:usa AND language:spanish  
+线性学习器可以很好地扩展到大量数据。对大规模数据集使用特征组合是学习高度复杂模型的一种有效策略。神经网络可提供另一种策略
 
 
 ## 二、 Cleaning Data
